@@ -8,6 +8,13 @@ const refs = {
 }
 
 const form = document.querySelector('.form');
+form.addEventListener('input', inputChecked);
+
+function inputChecked() {
+  if (refs.amount.value < 0  || refs.delay.value < 0 || refs.step.value < 0) {
+    Notiflix.Notify.failure('Please, enter a number greater than 0');
+  }
+}
 
 function createPromise(position, delay) {
   const shouldResolve = Math.random() > 0.3;
@@ -31,7 +38,7 @@ form.addEventListener('submit', function (event) {
   let delay = Number(refs.delay.value);
   const step = Number(refs.step.value);
   const amount = Number(refs.amount.value);
-
+     
   for (let i = 1; i <= amount; i++) {
     createPromise(i, delay)
       .then(({ position, delay }) => {
